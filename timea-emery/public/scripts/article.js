@@ -21,9 +21,12 @@ Article.prototype.toHtml = function() {
 Article.loadAll = articleData => {
   articleData.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)))
 
-  /* OLD forEach():
-  articleData.forEach(articleObject => Article.all.push(new Article(articleObject)));
-  */
+  // articleData.forEach(articleObject => Article.all.push(new Article(articleObject)));
+
+  Article.all = articleData.map((articleObject) => {
+
+    return new Article(articleObject)
+  });
 
 };
 
@@ -36,15 +39,31 @@ Article.fetchAll = callback => {
 };
 
 Article.numWordsAll = () => {
-  return Article.all.map().reduce()
+
+  return Article.all.map((article) => {
+
+    return article.body.split(' ').length;
+  })
+    .reduce(
+      (accumulator, val) => {
+        return accumulator + val;
+      }, 0);
 };
 
 Article.allAuthors = () => {
-  return Article.all.map().reduce();
-};
+  return Article.all.map((article) => {
+
+    return article.author
+
+  }).reduce();
+  }
+
 
 Article.numWordsByAuthor = () => {
-  return Article.allAuthors().map(author => {})
+  return Article.allAuthors().map(author => {
+
+  }
+  )
 };
 
 Article.truncateTable = callback => {
